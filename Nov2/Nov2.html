@@ -58,16 +58,23 @@
 			function init() {
 				clock = new THREE.Clock(true);
 
-				/**
+				
 				var audio = document.createElement('audio');
 				var source = document.createElement('source');
-				source.src = '/sounds/donk.mp3';
+				source.src = 'sounds/PianoSolo1RF.mp3';
 				audio.appendChild(source);
 				audio.play();
-				*/
+				
+
 				container = document.getElementById( 'container' );
 				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1100 );
 				scene = new THREE.Scene();
+
+
+				var dirLight = new THREE.DirectionalLight(0xffffff, 1);
+    			dirLight.position.set(100, 100, 50);
+    			scene.add(dirLight);
+
 				texture_placeholder = document.createElement( 'canvas' );
 				texture_placeholder.width = 128;
 				texture_placeholder.height = 128;
@@ -84,12 +91,20 @@
 				];
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 400, 400, 400, 7, 7, 7 ), new THREE.MultiMaterial( materials ) );
 				mesh.scale.x = - 1;
+
+				var geometry = new THREE.SphereGeometry( 100,8,6 );
+				var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+
+				var mesh2 = new THREE.Mesh( geometry, material );
+
+				scene.add(mesh2);
+
 				scene.add( mesh );
 
-				particleSystem = createParticleSystem();
-  				scene.add(particleSystem);
+				//particleSystem = createParticleSystem();
+  				//scene.add(particleSystem);
 
-				animateParticles();
+				
 
 				renderer = new THREE.CanvasRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -108,7 +123,7 @@
 			}
 			function animate() {
 			    deltaTime = clock.getDelta();
-			     
+			    //animateParticles();
 			   
 			    render();
 			    requestAnimationFrame( animate );
