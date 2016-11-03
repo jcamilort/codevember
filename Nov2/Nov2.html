@@ -51,7 +51,6 @@
 			//var clock;
 			var deltaTime;
 			 
-			var particleSystem;
 
 			init();
 			animate();
@@ -92,19 +91,7 @@
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 400, 400, 400, 7, 7, 7 ), new THREE.MultiMaterial( materials ) );
 				mesh.scale.x = - 1;
 
-				var geometry = new THREE.SphereGeometry( 100,8,6 );
-				var material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-
-				var mesh2 = new THREE.Mesh( geometry, material );
-
-				scene.add(mesh2);
-
 				scene.add( mesh );
-
-				//particleSystem = createParticleSystem();
-  				//scene.add(particleSystem);
-
-				
 
 				renderer = new THREE.CanvasRenderer();
 				renderer.setPixelRatio( window.devicePixelRatio );
@@ -120,13 +107,6 @@
 				window.addEventListener( 'resize', onWindowResize, false );
 
 
-			}
-			function animate() {
-			    deltaTime = clock.getDelta();
-			    //animateParticles();
-			   
-			    render();
-			    requestAnimationFrame( animate );
 			}
 			function render() {
 			    renderer.render( scene, camera );
