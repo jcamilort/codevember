@@ -83,7 +83,7 @@
 				];
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 400, 400, 400, 7, 7, 7 ), new THREE.MultiMaterial( materials ) );
 				mesh.scale.x = - 1;
-				//scene.add( mesh );
+				scene.add( mesh );
 
 				particleSystem = createParticleSystem();
   				scene.add(particleSystem);
