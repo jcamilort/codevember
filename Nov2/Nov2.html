@@ -61,6 +61,10 @@
 				var audio = document.createElement('audio');
 				var source = document.createElement('source');
 				source.src = 'sounds/PianoSolo1RF.mp3';
+				audio.addEventListener('ended', function() {
+				    this.currentTime = 0;
+				    this.play();
+				}, false);
 				audio.appendChild(source);
 				audio.play();
 				
