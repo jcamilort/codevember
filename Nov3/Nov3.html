@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>GPU Particle System with Three.js</title>
+  		<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+		<style>
+			body {
+			  margin: 0;
+			  background: #111;
+			  background-color: #FFCBF7;
+			  min-width: 960px;
+			}
+			#info {
+				position: absolute;
+				bottom: 0px; width: 100%;
+				right:10px;
+				color: #FFE8FC;
+				padding: 5px;
+				font-family:'Noto Sans';
+				font-size:13px;
+				font-weight: light;
+				text-align:right;
+			}
+			a {
+				color: #DE9AD6;
+			}
+		</style>
+	</head>
+	<body >
+		<div id="info">Particle Experiment based on <a href="http://bl.ocks.org/mbostock/9539958" target="_blank">Mike Bostock's OMG Particles II</a>.</div>
+
+		<script src="https://threejs.org/build/three.js"></script>
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<script>
+			var width = Math.max(960, innerWidth),
+			    height = Math.max(500, innerHeight);
+
+			var x1 = width / 2,
+			    y1 = height / 2,
+			    x0 = x1,
+			    y0 = y1,
+			    i = 1,
+			    r = 100,
+			    τ = 2 * Math.PI;
+			    dir = 1;
+
+			var canvas = d3.select("body").append("canvas")
+			    .attr("width", width)
+			    .attr("height", height);
+			    //.on("ontouchstart" in document ? "touchmove" : "mousemove", move);;
+
+			var context = canvas.node().getContext("2d");
+			context.globalCompositeOperation = "lighter";
+			context.lineWidth = 2;
+
+			d3.timer(function(elapsed) {
+			  context.clearRect(0, 0, width, height);
+
+			  x1 = (width/4)*Math.cos(elapsed/1000)+width/2;
+			  y1 = 50*Math.sin(elapsed/1000)+height/2;
+
+			  if(i>=60 || i<=0){ dir= dir*(-1);}
+			  //if(i)
+
+			  	i += dir;
+
+			  	console.log(i+" "+dir);
+
+			  var z = d3.hsl(180 +( i % 61), 0.8, .2).rgb(),
+			      c = "rgba(" + z.r + "," + z.g + "," + z.b + ",",
+			      x = x0 += (x1 - x0) * .1,
+			      y = y0 += (y1 - y0) * .1;
+
+			  d3.select({}).transition()
+			      .duration(10000)
+			      .ease(Math.sqrt)
+			      .tween("circle", function() {
+			        return function(t) {
+			          context.strokeStyle = c + (1 - t) + ")";
+			          context.beginPath();
+			          context.arc(x, y, r * .8*t, 0, τ);
+			          context.stroke();
+			        };
+			      });
+			});
+			/**
+			function move() {
+			  var mouse = d3.mouse(this);
+			  x1 = mouse[0];
+			  y1 = mouse[1];
+			  d3.event.preventDefault();
+			}
+			*/
+		</script>
+	</body>
+</html>
