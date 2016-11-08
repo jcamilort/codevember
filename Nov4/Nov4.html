@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>Line Waves</title>
+  		<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+		<style>
+			body {
+			  margin: 0;
+			  min-width: 960px;
+			}
+			#info {
+				position: absolute;
+				bottom: 0px; width: 100%;
+				right:10px;
+				color: #888888;
+				padding: 5px;
+				font-family:'Noto Sans';
+				font-size:13px;
+				font-weight: light;
+				text-align:right;
+			}
+
+		</style>
+	</head>
+	<body >
+		<div id="info">Line Waves Exercise</div>
+
+		<script src="https://threejs.org/build/three.js"></script>
+		<script>
+
+			var geoms = [];
+			var renderer = new THREE.WebGLRenderer();
+	        renderer.setSize(window.innerWidth, window.innerHeight);
+	        document.body.appendChild(renderer.domElement);
+		    
+		    var scene = new THREE.Scene();
+			var camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 500);
+		    var geometry0 = new THREE.Geometry();
+		    var geometry1 = new THREE.Geometry();
+		    var geometry2 = new THREE.Geometry();
+		    var geometry3 = new THREE.Geometry();
+		    var geometry4 = new THREE.Geometry();
+		    var geometry5 = new THREE.Geometry();
+		    var geometry6 = new THREE.Geometry();
+		    var geometry7 = new THREE.Geometry();
+		    var geometry8 = new THREE.Geometry();
+		    var geometry9 = new THREE.Geometry();
+
+		    var maxPhi = 1;
+
+
+		    var material = new THREE.LineBasicMaterial({
+		        color: 0x555555, 
+		        linewidth: 3, 
+		        transparent: true, 
+		        opacity: 0.5
+		    });
+
+		    var line0,line1,line2,line3,line4;
+		    var move, movein;
+
+		    var numLineas = 5;
+	        
+	        init();
+	        animate();
+
+	        function init(){
+
+	        	movein = Date.now();
+		        camera.position.set(0, 0, 100);
+		        camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+		        scene.background = new THREE.Color( 0xDDDDDD );
+		        
+		        
+		        geometry0.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry0.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry1.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry1.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry2.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry2.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry3.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry3.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry4.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry4.vertices.push(new THREE.Vector3(100, 0, 0));
+		        
+		        geometry5.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry5.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry6.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry6.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry7.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry7.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry8.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry8.vertices.push(new THREE.Vector3(100, 0, 0));
+
+		        geometry9.vertices.push(new THREE.Vector3(-100, 0, 0));
+		        geometry9.vertices.push(new THREE.Vector3(100, 0, 0));
+		        
+
+		        line0 = new THREE.Line(geometry0, material);
+		        line1 = new THREE.Line(geometry1, material);
+		        line2 = new THREE.Line(geometry2, material);
+		        line3 = new THREE.Line(geometry3, material);
+		        line4 = new THREE.Line(geometry4, material);
+		        line5 = new THREE.Line(geometry0, material);
+		        line6 = new THREE.Line(geometry1, material);
+		        line7 = new THREE.Line(geometry2, material);
+		        line8 = new THREE.Line(geometry3, material);
+		        line9 = new THREE.Line(geometry4, material);
+
+		        scene.add(line0);
+		        scene.add(line1);
+		        scene.add(line2);
+		        scene.add(line3);
+		        scene.add(line4);
+		        scene.add(line5);
+		        scene.add(line6);
+		        scene.add(line7);
+		        scene.add(line8);
+		        scene.add(line9);
+		        
+	        }
+	        
+
+        	function animate() {
+				requestAnimationFrame( animate );
+				move = (movein - Date.now())/800;
+
+				geometry0.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move), 0);
+				geometry0.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move), 0);
+
+				geometry1.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+(maxPhi/9)), 0);
+				geometry1.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+(maxPhi/9)), 0);
+
+				geometry2.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+2*(maxPhi/9)), 0);
+				geometry2.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+2*(maxPhi/9)), 0);
+
+				geometry3.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+3*(maxPhi/9)), 0);
+				geometry3.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+3*(maxPhi/9)), 0);
+
+				geometry4.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+4*(maxPhi/9)), 0);
+				geometry4.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+4*(maxPhi/9)), 0);
+
+				geometry5.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+5*(maxPhi/9)), 0);
+				geometry5.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+5*(maxPhi/9)), 0);
+
+				geometry6.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+6*(maxPhi/9)), 0);
+				geometry6.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+6*(maxPhi/9)), 0);
+
+				geometry7.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+7*(maxPhi/9)), 0);
+				geometry7.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+7*(maxPhi/9)), 0);
+
+				geometry8.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+8*(maxPhi/9)), 0);
+				geometry8.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+8*(maxPhi/9)), 0);
+
+				geometry9.vertices[0] = new THREE.Vector3(-100, 100*Math.cos(move+maxPhi), 0);
+				geometry9.vertices[1] = new THREE.Vector3(100, -100*Math.cos(move+maxPhi), 0);
+
+				geometry0.verticesNeedUpdate= true;
+				geometry1.verticesNeedUpdate= true;
+				geometry2.verticesNeedUpdate= true;
+				geometry3.verticesNeedUpdate= true;
+				geometry4.verticesNeedUpdate= true;
+				geometry5.verticesNeedUpdate= true;
+				geometry6.verticesNeedUpdate= true;
+				geometry7.verticesNeedUpdate= true;
+				geometry8.verticesNeedUpdate= true;
+				geometry9.verticesNeedUpdate= true;
+				
+				render();
+			}
+			
+			function render() {
+
+	        	renderer.render(scene, camera);
+			}
+		</script>
+	</body>
+</html>
