@@ -37,6 +37,8 @@
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
+		    scene.background = new THREE.Color( 0x222222 );
+			
 			var dirLight = new THREE.DirectionalLight(0xffffff, 1);
     		dirLight.position.set(100, 100, 50);
     		scene.add(dirLight);
@@ -46,7 +48,7 @@
 			document.body.appendChild( renderer.domElement );
 			
 			var geometry = new THREE.PlaneGeometry( 100, 100, 50, 50 );
-			var material = new THREE.MeshBasicMaterial( { color: 0xffffff , wireframe:true, transparent: true, opacity: 0.4, wireframeLinewidth:1, blending: THREE.NormalBlending} );
+			var material = new THREE.MeshBasicMaterial( { color: 0xDDDDDD , wireframe:true, transparent: true, opacity: 0.4, wireframeLinewidth:1, blending: THREE.NormalBlending} );
 
 			//console.log(geometry.attributes.position.length);
 			
