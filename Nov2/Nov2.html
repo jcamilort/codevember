@@ -85,12 +85,12 @@
 				context.fillStyle = 'rgb( 200, 200, 200 )';
 				context.fillRect( 0, 0, texture_placeholder.width, texture_placeholder.height );
 				var materials = [
-					loadTexture( 'textures/cubedawn/px.jpg' ), // right
-					loadTexture( 'textures/cubedawn/nx.jpg' ), // left
-					loadTexture( 'textures/cubedawn/py.jpg' ), // top
-					loadTexture( 'textures/cubedawn/ny.jpg' ), // bottom
-					loadTexture( 'textures/cubedawn/pz.jpg' ), // back
-					loadTexture( 'textures/cubedawn/nz.jpg' )  // front
+					loadTexture( 'textures/cubesunset/px.jpg' ), // right
+					loadTexture( 'textures/cubesunset/nx.jpg' ), // left
+					loadTexture( 'textures/cubesunset/py.jpg' ), // top
+					loadTexture( 'textures/cubesunset/ny.jpg' ), // bottom
+					loadTexture( 'textures/cubesunset/pz.jpg' ), // back
+					loadTexture( 'textures/cubesunset/nz.jpg' )  // front
 				];
 				mesh = new THREE.Mesh( new THREE.BoxGeometry( 400, 400, 400, 7, 7, 7 ), new THREE.MultiMaterial( materials ) );
 				mesh.scale.x = - 1;

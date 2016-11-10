@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Three.js: Stars</title>
+  		<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+		<style>
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				position: absolute;
+				bottom: 0px; width: 100%;
+				right:10px;
+				color: #888888;
+				padding: 5px;
+				font-family:'Noto Sans';
+				font-size:13px;
+				font-weight: light;
+				text-align:right;
+			}
+			a {
+				color: #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="container"></div>
+		<div id="info">Stars experiment based on tutorial by <a href="https://aerotwist.com/tutorials/creating-particles-with-three-js/" target="_blank">Paul @ Aerotwist </a> and <a href="https://threejs.org/examples/?q=particles#canvas_particles_sprites" target="_blank">sprite examples</a>.</div>
+		
+		<script src="https://threejs.org/build/three.js"></script>
+
+		<script src="js/CanvasRenderer.js"></script>
+		<script src="js/Projector.js"></script>
+
+
+
+		<script>
+		
+				
+			// the main three.js components
+			var camera, scene, renderer;
+
+			// an array to store our particles in
+			var	particles = [];
+
+			// let's get going! 
+			init();
+
+			function init() {
+				camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
+				camera.position.z = 1000;
+
+				scene = new THREE.Scene();
+		   		scene.background = new THREE.Color( 0xFFFFFF);
+				scene.add(camera);
+
+				renderer = new THREE.CanvasRenderer();
+				//Add filter to color image
+				//renderer.setClearColor( 0xFF00FB );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+	
+				document.body.appendChild( renderer.domElement );
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				makeParticles(); 
+			
+				// render 30 times a second (should also look 
+				// at requestAnimationFrame) 
+				setInterval(update,1000/30); 
+			
+			}
+
+
+			function update() {
+
+				updateParticles();
+				renderer.render( scene, camera );
+
+			}
+
+			// creates a random field of Particle objects
+			
+			function makeParticles() { 
+				
+				var particle, material; 
+
+				// we're gonna move from z position -1000 (far away) 
+				// to 1000 (where the camera is) and add a random particle at every pos. 
+				for ( var zpos= -1000; zpos < 1000; zpos+=2 ) {
+					if(Math.random()<0.9){
+						var material = new THREE.SpriteMaterial( {
+							map: new THREE.CanvasTexture( generateSprite() ),
+							blending: THREE.AdditiveBlending
+						} );
+
+					}
+					else{
+						var material = new THREE.SpriteMaterial( {
+							map: new THREE.CanvasTexture( generateSpriteRed() ),
+							blending: THREE.AdditiveBlending
+						} );
+
+					}
+
+					// make the particle
+					particle = new THREE.Particle(material);
+		
+					// give it a random x and y position between -500 and 500
+					particle.position.x = Math.random() * 1000 - 500;
+					particle.position.y = Math.random() * 1000 - 500;
+		
+					// set its z position
+					particle.position.z = zpos;
+		
+					// scale it up a bit
+					particle.scale.x = particle.scale.y = 10;
+		
+					// add it to the scene
+					scene.add( particle );
+		
+					// and to the array of particles. 
+					particles.push(particle); 
+				}
+				
+			}
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			
+			function updateParticles() { 
+				
+				for(var i=0; i<particles.length; i++) {
+		
+					particle = particles[i]; 
+		
+					particle.position.z +=   1;
+		
+					// if the particle is too close move it to the back
+					if(particle.position.z>1000) particle.position.z-=2000; 
+		
+				}
+	
+			}
+		
+			function generateSprite() {
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 16;
+				canvas.height = 16;
+				var context = canvas.getContext( '2d' );
+				var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+				gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+				gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
+				gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
+				gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+				context.fillStyle = gradient;
+				context.fillRect( 0, 0, canvas.width, canvas.height );
+				return canvas;
+			}
+		
+			function generateSpriteRed() {
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 16;
+				canvas.height = 16;
+				var context = canvas.getContext( '2d' );
+				var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+				gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+				gradient.addColorStop( 0.2, 'rgba(255,0,128,1)' );
+				gradient.addColorStop( 0.4, 'rgba(128,0,0,1)' );
+				gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+				context.fillStyle = gradient;
+				context.fillRect( 0, 0, canvas.width, canvas.height );
+				return canvas;
+			}
+
+		</script>
+	</body>
+</html>
