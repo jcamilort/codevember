@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Beating Light</title>
+  		<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+		<style>
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				position: absolute;
+				bottom: 0px; width: 100%;
+				right:10px;
+				color: #888888;
+				padding: 5px;
+				font-family:'Noto Sans';
+				font-size:13px;
+				font-weight: light;
+				text-align:right;
+			}
+			a {
+				color: #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="container"></div>
+		<div id="info">Beating Light with radial gradient.</div>
+		
+		<script src="https://threejs.org/build/three.js"></script>
+
+		<script src="js/CanvasRenderer.js"></script>
+		<script src="js/Projector.js"></script>
+
+
+
+		<script>
+			// the main three.js components
+			var camera, scene, renderer;
+			var particle;
+			var move, movein;
+			var gradio = 200;
+
+			// an array to store our particles in
+			var	particles = [];
+			var direccion = 1;
+
+			// let's get going! 
+			init();
+
+			function init() {
+	        	movein = Date.now();
+				camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
+				camera.position.z = 1000;
+
+				scene = new THREE.Scene();
+		   		scene.background = new THREE.Color( 0xCCCCCC);
+				scene.add(camera);
+
+				renderer = new THREE.CanvasRenderer();
+				//Add filter to color image
+				//renderer.setClearColor( 0xFF00FB );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+	
+				document.body.appendChild( renderer.domElement );
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				makeParticle(); 
+			
+				// render 30 times a second (should also look 
+				// at requestAnimationFrame) 
+				setInterval(update,1000/30); 
+			
+			}
+
+
+			function update() {
+
+				updateParticles();
+				//renderer.setClearColor( 0xAAAAFA );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.render( scene, camera );
+
+			}
+
+			// creates a random field of Particle objects
+			
+			function makeParticle() { 
+				
+				var  material; 
+
+				var material = new THREE.SpriteMaterial( {
+							map: new THREE.CanvasTexture( generateSprite() ),
+							blending: THREE.AdditiveBlending
+						} );
+				particle = new THREE.Particle(material);
+				particle.scale.x = particle.scale.y = 400;
+				particle.position.x = particle.position.y = particle.position.z = 0;
+
+				scene.add(particle);
+				
+			}
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			
+			function updateParticles() { 
+				move = (movein - Date.now())/800;
+				
+				for(var i = 0; i<500; i++){
+					//particle.scale.x +=0.5*direccion;
+					//particle.scale.y +=0.5*direccion;
+					particle.position.z += 0.25*direccion;
+					if(particle.position.z>1000 || particle.position.z<0)
+					//if(particle.scale.x>10000 || particle.scale.x<0)
+					{
+						direccion*=-1;
+					} 
+					//particle.position.x = gradio*Math.sin(move);
+					//particle.position.y = gradio*Math.cos(move);
+				}
+				
+	
+			}
+
+		
+			function generateSprite() {
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 100;
+				canvas.height = 100;
+				var context = canvas.getContext( '2d' );
+				var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2,canvas.width / 2);
+				gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+				gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
+				gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
+				gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+				context.fillStyle = gradient;
+				context.fillRect( 0, 0, canvas.width, canvas.height );
+				return canvas;
+			}
+
+		</script>
+	</body>
+</html>
