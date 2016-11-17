@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>Rotating Circles</title>
+		<style>
+			body {
+				background-color: #ffffff;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				position: absolute;
+				bottom: 0px; width: 100%;
+				right:10px;
+				color: #888888;
+				padding: 5px;
+				font-family:'Helvetica';
+				font-size:13px;
+				font-weight: light;
+				text-align:right;
+			}
+			a {
+				color: #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="container"></div>
+		<div id="info">Circle Geometries</div>
+		
+		<script src="https://threejs.org/build/three.js"></script>
+
+
+
+		<script>
+			document.body.addEventListener( 'mousewheel', mousewheel, false );
+			// the main three.js components
+			var camera, scene, renderer;
+			camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
+			camera.position.z = 50;
+			//camera.position.y = 50;
+
+			scene = new THREE.Scene();
+		   	scene.background = new THREE.Color( 0xFFFFFF);
+			scene.add(camera);
+
+			renderer = new THREE.WebGLRenderer();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+	
+			document.body.appendChild( renderer.domElement );
+			window.addEventListener( 'resize', onWindowResize, false );
+
+			var geometry = new THREE.CircleGeometry( 25, 180 );
+			var geometry2 = new THREE.CircleGeometry( 30, 180 );
+			var geometry3 = new THREE.CircleGeometry( 20, 180 );
+			var geometry4 = new THREE.CircleGeometry( 15, 180 );
+			var material = new THREE.MeshBasicMaterial( { color: 0x000000 , wireframe:true, transparent: true, opacity: 0.6, wireframeLinewidth:2, blending: THREE.NormalBlending} );
+			var material2 = new THREE.MeshBasicMaterial( { color: 0x222222, wireframe:true, transparent: true, opacity: 0.6, wireframeLinewidth:2, blending: THREE.NormalBlending} );
+			var material3 = new THREE.MeshBasicMaterial( { color: 0x888888, wireframe:true, transparent: true, opacity: 0.6, wireframeLinewidth:2, blending: THREE.NormalBlending} );
+			var material4 = new THREE.MeshBasicMaterial( { color: 0xAAAAAA, wireframe:true, transparent: true, opacity: 0.6, wireframeLinewidth:2, blending: THREE.NormalBlending} );
+			var circle = new THREE.Mesh( geometry, material );
+			var circle2 = new THREE.Mesh( geometry2, material2 );
+			var circle3 = new THREE.Mesh( geometry3, material3 );
+			var circle4 = new THREE.Mesh( geometry4, material4 );
+
+
+			//var circle2.rotation.y = Math.PI/2;
+
+
+			scene.add( circle );
+			scene.add( circle2 );
+			scene.add( circle3 );
+			scene.add( circle4 );
+			var render = function(){
+				requestAnimationFrame(render);
+
+				circle.rotation.x += 0.05;
+				circle2.rotation.y -= 0.05;
+				circle3.rotation.x -=0.05;
+				circle4.rotation.y +=0.05;
+				renderer.render( scene, camera );
+
+			}
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			function mousewheel( e ) {      
+			    var d = ((typeof e.wheelDelta != "undefined")?(-e.wheelDelta):e.detail);
+			    d = 2*((d>0)?1:-1);
+
+			    var cPos = camera.position;
+			    if (isNaN(cPos.x) || isNaN(cPos.y) || isNaN(cPos.y))
+			      return;
+
+			    var r = cPos.x*cPos.x + cPos.y*cPos.y;
+			    var sqr = Math.sqrt(r);
+			    var sqrZ = Math.sqrt(cPos.z*cPos.z + r);
+
+
+			    var nx = cPos.x + ((r==0)?0:(d * cPos.x/sqr));
+			    var ny = cPos.y + ((r==0)?0:(d * cPos.y/sqr));
+			    var nz = cPos.z + ((sqrZ==0)?0:(d * cPos.z/sqrZ));
+
+			    if (isNaN(nx) || isNaN(ny) || isNaN(nz))
+			      return;
+
+			    cPos.x = nx;
+			    cPos.y = ny;
+			    cPos.z = nz;
+			}
+			render();
+		</script>
+	</body>
+</html>
