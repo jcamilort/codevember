@@ -73,6 +73,15 @@
 			var texture2 = THREE.ImageUtils.loadTexture('assets/ps2.png');
 			var texture3 = THREE.ImageUtils.loadTexture('assets/ps3.png');
         
+        	var textureLoader = new THREE.TextureLoader();
+			textureLoader.load('assets/ps1.png');
+
+			// Add the event listener
+			textureLoader.addEventListener('load', function(event){
+			    // The actual texture is returned in the event.content
+			    mesh.material.map = event.content;
+
+			});
 
 
 			var material = new THREE.MeshBasicMaterial( { map: texture } );
