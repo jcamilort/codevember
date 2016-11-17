@@ -88,6 +88,7 @@
 					material = new THREE.MeshBasicMaterial( {
 						map: texture
 					 } );
+					console.log("Texture 1 Fully loaded");
 				},
 				// Function called when download progresses
 				function ( xhr ) {
@@ -110,6 +111,7 @@
 					material2 = new THREE.MeshBasicMaterial( {
 						map: texture
 					 } );
+					console.log("Texture 2 Fully loaded");
 				},
 				// Function called when download progresses
 				function ( xhr ) {
@@ -129,9 +131,10 @@
 				// Function when resource is loaded
 				function ( texture ) {
 					// do something with the texture
-					material = new THREE.MeshBasicMaterial( {
+					material3 = new THREE.MeshBasicMaterial( {
 						map: texture
 					 } );
+					console.log("Texture 3 Fully loaded");
 				},
 				// Function called when download progresses
 				function ( xhr ) {
