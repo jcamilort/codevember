@@ -69,22 +69,36 @@
 			var geometry2 = new THREE.ShapeGeometry( shape );
 			var geometry3 = new THREE.ShapeGeometry( shape );
 
-			var texture = THREE.ImageUtils.loadTexture('assets/ps1.png');
+			/*var texture = THREE.ImageUtils.loadTexture('assets/ps1.png');
 			var texture2 = THREE.ImageUtils.loadTexture('assets/ps2.png');
-			var texture3 = THREE.ImageUtils.loadTexture('assets/ps3.png');
+			var texture3 = THREE.ImageUtils.loadTexture('assets/ps3.png');*/
         
-        	var textureLoader = new THREE.TextureLoader();
-			textureLoader.load('assets/ps1.png');
+        	// instantiate a loader
+			var loader = new THREE.TextureLoader();
 
-			// Add the event listener
-			textureLoader.addEventListener('load', function(event){
-			    // The actual texture is returned in the event.content
-			    mesh.material.map = event.content;
+			// load a resource
+			loader.load(
+				// resource URL
+				'assets/ps1.png',
+				// Function when resource is loaded
+				function ( texture ) {
+					// do something with the texture
+					var material = new THREE.MeshBasicMaterial( {
+						map: texture
+					 } );
+				},
+				// Function called when download progresses
+				function ( xhr ) {
+					console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+				},
+				// Function called when download errors
+				function ( xhr ) {
+					console.log( 'An error happened' );
+				}
+			);
 
-			});
 
-
-			var material = new THREE.MeshBasicMaterial( { map: texture } );
+			//var material = new THREE.MeshBasicMaterial( { map: texture } );
 			var material2 = new THREE.MeshBasicMaterial( { map: texture2 } );
 			var material3 = new THREE.MeshBasicMaterial( { map: texture3 } );
 
