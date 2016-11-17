@@ -68,6 +68,7 @@
 			var geometry = new THREE.ShapeGeometry( shape );
 			var geometry2 = new THREE.ShapeGeometry( shape );
 			var geometry3 = new THREE.ShapeGeometry( shape );
+			var material;
 
 			/*var texture = THREE.ImageUtils.loadTexture('assets/ps1.png');
 			var texture2 = THREE.ImageUtils.loadTexture('assets/ps2.png');
@@ -83,7 +84,7 @@
 				// Function when resource is loaded
 				function ( texture ) {
 					// do something with the texture
-					var material = new THREE.MeshBasicMaterial( {
+					material = new THREE.MeshBasicMaterial( {
 						map: texture
 					 } );
 				},
