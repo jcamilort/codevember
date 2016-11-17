@@ -41,11 +41,11 @@
 
 		<script>
 			var camera, scene, renderer;
-			var length = 100, width = 100;
+			var length = 200, width = 200;
 
 
 			camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
-			camera.position.z = 5;
+			camera.position.z = 2;
 			scene = new THREE.Scene();
 		   	
 		   	scene.background = new THREE.Color( 0xDF08FF);
@@ -149,16 +149,17 @@
 			);
 
 			*/
-			material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps1.png') } );
+			material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/psb-01.png') } );
     		material.map.needsUpdate = true; //ADDED
-			material2 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps2.png') } );
+			material2 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/psb-02.png') } );
     		material2.map.needsUpdate = true; //ADDED
-			material3 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps3.png') } );
+			material3 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/psb-03.png') } );
     		material3.map.needsUpdate = true; //ADDED
 
 			var mesh = new THREE.Mesh( geometry, material ) ;
 			var mesh2 = new THREE.Mesh( geometry2, material2 ) ;
 			var mesh3 = new THREE.Mesh( geometry3, material3 ) ;
+
 
 			scene.add( mesh );
 			scene.add( mesh2 );
