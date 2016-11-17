@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>SVG</title>
+  		<link href='https://fonts.googleapis.com/css?family=Noto+Sans:400,700' rel='stylesheet' type='text/css'>
+		<style>
+			body {
+				background-color: #000000;
+				margin: 0px;
+				overflow: hidden;
+			}
+			#info {
+				position: absolute;
+				bottom: 0px; width: 100%;
+				right:10px;
+				color: #888888;
+				padding: 5px;
+				font-family:'Noto Sans';
+				font-size:13px;
+				font-weight: light;
+				text-align:right;
+			}
+			a {
+				color: #ffffff;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div id="container"></div>
+		<div id="info">Quick SVG transformation tutorial</div>
+		
+		<script src="https://threejs.org/build/three.js"></script>
+		<script src="http://threejs.org/examples/js/renderers/SVGRenderer.js"></script>
+		<script src="http://threejs.org/examples/js/renderers/Projector.js"></script>
+		<script src="http://threejs.org/examples/js/loaders/SVGLoader.js"></script>
+
+
+
+		<script>
+			var svgManager = new THREE.SVGLoader();
+			var url = 'assets/frente.svg';
+
+			function svg_loading_done_callback(doc) {
+			  init(new THREE.SVGObject(doc));
+			  animate();
+			};
+
+			svgManager.load(url, 
+			                svg_loading_done_callback, 
+			                function(){console.log("Loading SVG...");},
+			                function(){console.log("Error loading SVG!");
+			                });
+
+			var AMOUNT = 100;
+			var camera, scene, renderer;
+
+			function init(svgObject) {
+			  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+			  camera.position.z = 500;
+			  scene = new THREE.Scene();
+
+			  svgObject.position.x = Math.random() * 1000 - 500;
+			  svgObject.position.y = Math.random() * 1000 - 500;
+			  svgObject.position.z = Math.random() * 1000 - 500;
+			  scene.add(svgObject);
+
+			  var ambient = new THREE.AmbientLight(0x80ffff);
+			  scene.add(ambient);
+			  var directional = new THREE.DirectionalLight(0xffff00);
+			  directional.position.set(-1, 0.5, 0);
+			  scene.add(directional);
+			  renderer = new THREE.SVGRenderer();
+			  renderer.setClearColor(0xf0f0f0);
+			  renderer.setSize(window.innerWidth, window.innerHeight-5);
+			  document.body.appendChild(renderer.domElement);
+
+			  window.addEventListener('resize', onWindowResize, false);
+			}
+
+			function onWindowResize() {
+			  camera.aspect = window.innerWidth / window.innerHeight;
+			  camera.updateProjectionMatrix();
+			  renderer.setSize(window.innerWidth, window.innerHeight);
+			}
+
+			function animate() {
+			  requestAnimationFrame(animate);
+			  render();
+			}
+
+			function render() {
+			  var time = Date.now() * 0.0002;
+			  camera.position.x = Math.sin(time) * 500;
+			  camera.position.z = Math.cos(time) * 500;
+			  camera.lookAt(scene.position);
+			  renderer.render(scene, camera);
+			}
+		</script>
+	</body>
+</html>
