@@ -150,8 +150,11 @@
 
 			*/
 			material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps1.png') } );
+    		material.map.needsUpdate = true; //ADDED
 			material2 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps2.png') } );
+    		material2.map.needsUpdate = true; //ADDED
 			material3 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps3.png') } );
+    		material3.map.needsUpdate = true; //ADDED
 
 			var mesh = new THREE.Mesh( geometry, material ) ;
 			var mesh2 = new THREE.Mesh( geometry2, material2 ) ;
