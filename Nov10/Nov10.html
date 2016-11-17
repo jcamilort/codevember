@@ -97,6 +97,50 @@
 					console.log( 'An error happened' );
 				}
 			);
+			var loader2 = new THREE.TextureLoader();
+
+			// load a resource
+			loader2.load(
+				// resource URL
+				'assets/ps2.png',
+				// Function when resource is loaded
+				function ( texture ) {
+					// do something with the texture
+					material2 = new THREE.MeshBasicMaterial( {
+						map: texture
+					 } );
+				},
+				// Function called when download progresses
+				function ( xhr ) {
+					console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+				},
+				// Function called when download errors
+				function ( xhr ) {
+					console.log( 'An error happened' );
+				}
+			);
+			var loader3 = new THREE.TextureLoader();
+
+			// load a resource
+			loader3.load(
+				// resource URL
+				'assets/ps3.png',
+				// Function when resource is loaded
+				function ( texture ) {
+					// do something with the texture
+					material = new THREE.MeshBasicMaterial( {
+						map: texture
+					 } );
+				},
+				// Function called when download progresses
+				function ( xhr ) {
+					console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
+				},
+				// Function called when download errors
+				function ( xhr ) {
+					console.log( 'An error happened' );
+				}
+			);
 
 
 			//var material = new THREE.MeshBasicMaterial( { map: texture } );
