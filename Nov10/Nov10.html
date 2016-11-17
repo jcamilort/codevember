@@ -71,11 +71,13 @@
 			var geometry3 = new THREE.ShapeGeometry( shape );
 			var material, material2, material3;
 
-			/*var texture = THREE.ImageUtils.loadTexture('assets/ps1.png');
+			/**
+			var texture = THREE.ImageUtils.loadTexture('assets/ps1.png');
 			var texture2 = THREE.ImageUtils.loadTexture('assets/ps2.png');
-			var texture3 = THREE.ImageUtils.loadTexture('assets/ps3.png');*/
+			var texture3 = THREE.ImageUtils.loadTexture('assets/ps3.png');
         
         	// instantiate a loader
+
 			var loader = new THREE.TextureLoader();
 
 			// load a resource
@@ -146,10 +148,10 @@
 				}
 			);
 
-
-			//var material = new THREE.MeshBasicMaterial( { map: texture } );
-			//var material2 = new THREE.MeshBasicMaterial( { color: 0xAAAAAA } );
-			//var material3 = new THREE.MeshBasicMaterial( { color: 0x444444 } );
+			*/
+			material = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps1.png') } );
+			material2 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps2.png') } );
+			material3 = new THREE.MeshBasicMaterial( { map: THREE.ImageUtils.loadTexture('https://jcamilort.github.io/codevember/Nov10/assets/ps3.png') } );
 
 			var mesh = new THREE.Mesh( geometry, material ) ;
 			var mesh2 = new THREE.Mesh( geometry2, material2 ) ;
