@@ -43,6 +43,7 @@
 			var camera, scene, renderer;
 			var length = 100, width = 100;
 
+
 			camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 1, 4000 );
 			camera.position.z = 100;
 			scene = new THREE.Scene();
@@ -80,7 +81,7 @@
 			// load a resource
 			loader.load(
 				// resource URL
-				'assets/ps1.png',
+				'https://jcamilort.github.io/codevember/Nov10/assets/ps1.png',
 				// Function when resource is loaded
 				function ( texture ) {
 					// do something with the texture
@@ -102,7 +103,7 @@
 			// load a resource
 			loader2.load(
 				// resource URL
-				'assets/ps2.png',
+				'https://jcamilort.github.io/codevember/Nov10/assets/ps2.png',
 				// Function when resource is loaded
 				function ( texture ) {
 					// do something with the texture
@@ -124,7 +125,7 @@
 			// load a resource
 			loader3.load(
 				// resource URL
-				'assets/ps3.png',
+				'https://jcamilort.github.io/codevember/Nov10/assets/ps3.png',
 				// Function when resource is loaded
 				function ( texture ) {
 					// do something with the texture
@@ -150,6 +151,7 @@
 			var mesh = new THREE.Mesh( geometry, material ) ;
 			var mesh2 = new THREE.Mesh( geometry2, material2 ) ;
 			var mesh3 = new THREE.Mesh( geometry3, material3 ) ;
+
 			scene.add( mesh );
 			scene.add( mesh2 );
 			scene.add( mesh3 );
